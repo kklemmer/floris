@@ -237,3 +237,8 @@ wake:
       constant: 0.5
       ai: 0.8
       downstream: -0.32
+      n: 2
+
+  wake_combination_parameters:
+    sosfs:
+      n: 2

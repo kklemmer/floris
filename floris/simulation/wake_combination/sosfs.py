@@ -23,6 +23,8 @@ class SOSFS(BaseModel):
     wake velocity deficits to the base flow field.
     """
 
+    n: float = 2
+
     def prepare_function(self) -> dict:
         pass
 
@@ -39,4 +41,4 @@ class SOSFS(BaseModel):
             np.array: The resulting flow field after applying the wake to the
                 base.
         """
-        return np.hypot(wake_field, velocity_field)
+        return (wake_field**self.n + velocity_field**self.n)**(1/self.n)

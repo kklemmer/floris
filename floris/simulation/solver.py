@@ -244,9 +244,11 @@ def sequential_solver(
             * (grid.x_sorted <= downstream_influence_length + x_i)
         )
 
+        n = model_manager.wake_turbulence_parameters['crespo_hernandez']['n']
+
         # Combine turbine TIs with WAT
         turbine_turbulence_intensity = np.maximum(
-            np.sqrt( ti_added ** 2 + ambient_turbulence_intensity ** 2 ),
+            ( ti_added ** n + ambient_turbulence_intensity ** n) **(1/n),
             turbine_turbulence_intensity
         )
 

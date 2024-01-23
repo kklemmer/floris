@@ -61,6 +61,7 @@ class CrespoHernandez(BaseModel):
     constant: float = field(converter=float, default=0.9)
     ai: float = field(converter=float, default=0.8)
     downstream: float = field(converter=float, default=-0.32)
+    n: float = field(converter=float, default=2)
 
     def prepare_function(self) -> dict:
         pass

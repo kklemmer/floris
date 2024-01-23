@@ -92,6 +92,7 @@ class WakeModelManager(BaseClass):
     wake_deflection_parameters: dict = field(converter=dict)
     wake_turbulence_parameters: dict = field(converter=dict)
     wake_velocity_parameters: dict = field(converter=dict, default={})
+    wake_combination_parameters: dict = field(converter=dict, default={})
 
     combination_model: BaseModel = field(init=False)
     deflection_model: BaseModel = field(init=False)
@@ -135,7 +136,12 @@ class WakeModelManager(BaseClass):
 
         combination_model_string = self.model_strings["combination_model"].lower()
         model: BaseModel = MODEL_MAP["combination_model"][combination_model_string]
-        self.combination_model = model()
+        if combination_model_string == "sosfs":
+            model_parameters = self.wake_combination_parameters[combination_model_string]
+            self.combination_model = model.from_dict(model_parameters)
+        else:
+            model_parameters = None
+            self.combination_model = model()
 
     @model_strings.validator
     def validate_model_strings(self, instance: attrs.Attribute, value: dict) -> None:
